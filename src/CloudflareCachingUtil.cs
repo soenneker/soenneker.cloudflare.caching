@@ -42,11 +42,15 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             {
                 CacheLevel = result.AdditionalData?.TryGetValue("value", out var cacheLevel) == true ? cacheLevel?.ToString() : null,
                 BrowserCacheTtl = result.AdditionalData?.TryGetValue("browser_cache_ttl", out var ttl) == true && ttl != null ? Convert.ToInt32(ttl) : 0,
-                RespectStrongEtags = result.AdditionalData?.TryGetValue("respect_strong_etags", out var etags) == true && etags != null && Convert.ToBoolean(etags),
+                RespectStrongEtags = result.AdditionalData?.TryGetValue("respect_strong_etags", out var etags) == true && etags != null &&
+                                     Convert.ToBoolean(etags),
                 AlwaysOnline = result.AdditionalData?.TryGetValue("always_online", out var alwaysOnline) == true ? alwaysOnline?.ToString() : null,
-                DevelopmentMode = result.AdditionalData?.TryGetValue("development_mode", out var devMode) == true && devMode != null ? Convert.ToInt32(devMode) : 0,
+                DevelopmentMode = result.AdditionalData?.TryGetValue("development_mode", out var devMode) == true && devMode != null
+                    ? Convert.ToInt32(devMode)
+                    : 0,
                 QueryStringSort = result.AdditionalData?.TryGetValue("query_string_sort", out var sort) == true && sort != null && Convert.ToBoolean(sort),
-                PurgeCacheOnChange = result.AdditionalData?.TryGetValue("purge_cache_on_change", out var purge) == true && purge != null && Convert.ToBoolean(purge)
+                PurgeCacheOnChange = result.AdditionalData?.TryGetValue("purge_cache_on_change", out var purge) == true && purge != null &&
+                                     Convert.ToBoolean(purge)
             };
         }
         catch (Exception ex)
@@ -56,7 +60,8 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public async ValueTask<CloudflareCacheSettings> UpdateCacheSettings(string zoneId, CloudflareCacheSettings settings, CancellationToken cancellationToken = default)
+    public async ValueTask<CloudflareCacheSettings> UpdateCacheSettings(string zoneId, CloudflareCacheSettings settings,
+        CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Updating cache settings for zone {ZoneId}", zoneId);
         CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
@@ -130,7 +135,8 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public async ValueTask<Smart_tiered_cache_get_smart_tiered_cache_setting_Response_200_application_json?> GetSmartTieredCache(string zoneId, CancellationToken cancellationToken = default)
+    public async ValueTask<Smart_tiered_cache_get_smart_tiered_cache_setting_Response_200_application_json?> GetSmartTieredCache(string zoneId,
+        CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Getting Smart Tiered Cache settings for zone {ZoneId}", zoneId);
         CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
@@ -145,7 +151,8 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public async ValueTask<Smart_tiered_cache_patch_smart_tiered_cache_setting_Response_200_application_json?> UpdateSmartTieredCache(string zoneId, bool enabled, CancellationToken cancellationToken = default)
+    public async ValueTask<Smart_tiered_cache_patch_smart_tiered_cache_setting_Response_200_application_json?> UpdateSmartTieredCache(string zoneId,
+        bool enabled, CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Updating Smart Tiered Cache settings for zone {ZoneId} to {Enabled}", zoneId, enabled);
         CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
@@ -164,7 +171,8 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public async ValueTask<Smart_tiered_cache_patch_smart_tiered_cache_setting_Response_200_application_json?> EnableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default)
+    public async ValueTask<Smart_tiered_cache_patch_smart_tiered_cache_setting_Response_200_application_json?> EnableSmartTieredCache(string zoneId,
+        CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Enabling Smart Tiered Cache for zone {ZoneId}", zoneId);
         CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
@@ -183,7 +191,8 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public async ValueTask<Smart_tiered_cache_patch_smart_tiered_cache_setting_Response_200_application_json?> DisableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default)
+    public async ValueTask<Smart_tiered_cache_patch_smart_tiered_cache_setting_Response_200_application_json?> DisableSmartTieredCache(string zoneId,
+        CancellationToken cancellationToken = default)
     {
         _logger.LogInformation("Disabling Smart Tiered Cache for zone {ZoneId}", zoneId);
         CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
