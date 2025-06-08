@@ -48,7 +48,7 @@ public interface ICloudflareCachingUtil
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The Smart Tiered Cache settings</returns>
-    ValueTask<Zone_settings_get_single_setting_Response_200_application_json> GetSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
+    ValueTask<Smart_tiered_cache_get_smart_tiered_cache_setting_Response_200_application_json?> GetSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the Smart Tiered Cache settings for a zone
@@ -57,7 +57,7 @@ public interface ICloudflareCachingUtil
     /// <param name="enabled">Whether to enable Smart Tiered Cache</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The updated Smart Tiered Cache settings</returns>
-    ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> UpdateSmartTieredCache(string zoneId, bool enabled, CancellationToken cancellationToken = default);
+    ValueTask<Smart_tiered_cache_patch_smart_tiered_cache_setting_Response_200_application_json?> UpdateSmartTieredCache(string zoneId, bool enabled, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Enables Smart Tiered Cache for a zone
@@ -65,7 +65,7 @@ public interface ICloudflareCachingUtil
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The updated Smart Tiered Cache settings</returns>
-    ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> EnableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
+    ValueTask<Smart_tiered_cache_patch_smart_tiered_cache_setting_Response_200_application_json?> EnableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Disables Smart Tiered Cache for a zone
@@ -73,5 +73,5 @@ public interface ICloudflareCachingUtil
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The updated Smart Tiered Cache settings</returns>
-    ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> DisableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
+    ValueTask<Smart_tiered_cache_patch_smart_tiered_cache_setting_Response_200_application_json?> DisableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
 }

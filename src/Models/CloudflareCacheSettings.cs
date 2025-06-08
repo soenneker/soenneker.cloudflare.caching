@@ -23,13 +23,13 @@ public class CloudflareCacheSettings
     /// The cache level setting
     /// </summary>
     [JsonPropertyName("cache_level")]
-    public string CacheLevel { get; set; }
+    public string? CacheLevel { get; set; }
 
     /// <summary>
     /// Whether to enable always online
     /// </summary>
     [JsonPropertyName("always_online")]
-    public string AlwaysOnline { get; set; }
+    public string? AlwaysOnline { get; set; }
 
     /// <summary>
     /// The development mode status
