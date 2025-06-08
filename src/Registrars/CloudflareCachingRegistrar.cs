@@ -14,14 +14,14 @@ public static class CloudflareCachingRegistrar
     /// Registers Cloudflare caching services with the service collection
     /// </summary>
     /// <param name="services">The service collection to register with</param>
-    public static IServiceCollection AddCloudflareEmailRoutingUtilAsSingleton(this IServiceCollection services)
+    public static IServiceCollection AddCloudflareCachingUtilAsSingleton(this IServiceCollection services)
     {
         services.AddCloudflareClientUtilAsSingleton().TryAddSingleton<ICloudflareCachingUtil, CloudflareCachingUtil>();
 
         return services;
     }
 
-    public static IServiceCollection AddCloudflareEmailRoutingUtilAsScoped(this IServiceCollection services)
+    public static IServiceCollection AddCloudflareCachingUtilAsScoped(this IServiceCollection services)
     {
         services.AddCloudflareClientUtilAsSingleton().TryAddScoped<ICloudflareCachingUtil, CloudflareCachingUtil>();
 
