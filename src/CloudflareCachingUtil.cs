@@ -124,24 +124,24 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public async ValueTask<Zone_settings_get_single_setting_Response_200_application_json> GetTieredCacheTopology(string zoneId, CancellationToken cancellationToken = default)
+    public async ValueTask<Zone_settings_get_single_setting_Response_200_application_json> GetSmartTieredCache(string zoneId, CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Getting Tiered Cache Topology settings for zone {ZoneId}", zoneId);
+        _logger.LogInformation("Getting Smart Tiered Cache settings for zone {ZoneId}", zoneId);
         CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
         try
         {
-            return await client.Zones[zoneId].Settings["tiered_cache_topology"].GetAsync(cancellationToken: cancellationToken).NoSync();
+            return await client.Zones[zoneId].Settings["tiered_cache_smart_topology_enable"].GetAsync(cancellationToken: cancellationToken).NoSync();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error getting Tiered Cache Topology settings for zone {ZoneId}", zoneId);
+            _logger.LogError(ex, "Error getting Smart Tiered Cache settings for zone {ZoneId}", zoneId);
             throw;
         }
     }
 
-    public async ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> UpdateTieredCacheTopology(string zoneId, bool enabled, CancellationToken cancellationToken = default)
+    public async ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> UpdateSmartTieredCache(string zoneId, bool enabled, CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Updating Tiered Cache Topology settings for zone {ZoneId} to {Enabled}", zoneId, enabled);
+        _logger.LogInformation("Updating Smart Tiered Cache settings for zone {ZoneId} to {Enabled}", zoneId, enabled);
         CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
         try
         {
@@ -152,18 +152,18 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
                     ["value"] = enabled ? "on" : "off"
                 }
             };
-            return await client.Zones[zoneId].Settings["tiered_cache_topology"].PatchAsync(requestBody, cancellationToken: cancellationToken).NoSync();
+            return await client.Zones[zoneId].Settings["tiered_cache_smart_topology_enable"].PatchAsync(requestBody, cancellationToken: cancellationToken).NoSync();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error updating Tiered Cache Topology settings for zone {ZoneId}", zoneId);
+            _logger.LogError(ex, "Error updating Smart Tiered Cache settings for zone {ZoneId}", zoneId);
             throw;
         }
     }
 
-    public async ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> EnableTieredCacheTopology(string zoneId, CancellationToken cancellationToken = default)
+    public async ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> EnableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Enabling Tiered Cache Topology for zone {ZoneId}", zoneId);
+        _logger.LogInformation("Enabling Smart Tiered Cache for zone {ZoneId}", zoneId);
         CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
         try
         {
@@ -174,18 +174,18 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
                     ["value"] = "on"
                 }
             };
-            return await client.Zones[zoneId].Settings["tiered_cache_topology"].PatchAsync(requestBody, cancellationToken: cancellationToken).NoSync();
+            return await client.Zones[zoneId].Settings["tiered_cache_smart_topology_enable"].PatchAsync(requestBody, cancellationToken: cancellationToken).NoSync();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error enabling Tiered Cache Topology for zone {ZoneId}", zoneId);
+            _logger.LogError(ex, "Error enabling Smart Tiered Cache for zone {ZoneId}", zoneId);
             throw;
         }
     }
 
-    public async ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> DisableTieredCacheTopology(string zoneId, CancellationToken cancellationToken = default)
+    public async ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> DisableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Disabling Tiered Cache Topology for zone {ZoneId}", zoneId);
+        _logger.LogInformation("Disabling Smart Tiered Cache for zone {ZoneId}", zoneId);
         CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
         try
         {
@@ -196,11 +196,11 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
                     ["value"] = "off"
                 }
             };
-            return await client.Zones[zoneId].Settings["tiered_cache_topology"].PatchAsync(requestBody, cancellationToken: cancellationToken).NoSync();
+            return await client.Zones[zoneId].Settings["tiered_cache_smart_topology_enable"].PatchAsync(requestBody, cancellationToken: cancellationToken).NoSync();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error disabling Tiered Cache Topology for zone {ZoneId}", zoneId);
+            _logger.LogError(ex, "Error disabling Smart Tiered Cache for zone {ZoneId}", zoneId);
             throw;
         }
     }

@@ -43,35 +43,35 @@ public interface ICloudflareCachingUtil
     ValueTask PurgeUrls(string zoneId, string[] urls, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Gets the Tiered Cache Topology settings for a zone
+    /// Gets the Smart Tiered Cache settings for a zone
     /// </summary>
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
-    /// <returns>The Tiered Cache Topology settings</returns>
-    ValueTask<Zone_settings_get_single_setting_Response_200_application_json> GetTieredCacheTopology(string zoneId, CancellationToken cancellationToken = default);
+    /// <returns>The Smart Tiered Cache settings</returns>
+    ValueTask<Zone_settings_get_single_setting_Response_200_application_json> GetSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Updates the Tiered Cache Topology settings for a zone
+    /// Updates the Smart Tiered Cache settings for a zone
     /// </summary>
     /// <param name="zoneId">The zone ID</param>
-    /// <param name="enabled">Whether to enable Tiered Cache Topology</param>
+    /// <param name="enabled">Whether to enable Smart Tiered Cache</param>
     /// <param name="cancellationToken">The cancellation token</param>
-    /// <returns>The updated Tiered Cache Topology settings</returns>
-    ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> UpdateTieredCacheTopology(string zoneId, bool enabled, CancellationToken cancellationToken = default);
+    /// <returns>The updated Smart Tiered Cache settings</returns>
+    ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> UpdateSmartTieredCache(string zoneId, bool enabled, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Enables Tiered Cache Topology for a zone
+    /// Enables Smart Tiered Cache for a zone
     /// </summary>
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
-    /// <returns>The updated Tiered Cache Topology settings</returns>
-    ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> EnableTieredCacheTopology(string zoneId, CancellationToken cancellationToken = default);
+    /// <returns>The updated Smart Tiered Cache settings</returns>
+    ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> EnableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Disables Tiered Cache Topology for a zone
+    /// Disables Smart Tiered Cache for a zone
     /// </summary>
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
-    /// <returns>The updated Tiered Cache Topology settings</returns>
-    ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> DisableTieredCacheTopology(string zoneId, CancellationToken cancellationToken = default);
+    /// <returns>The updated Smart Tiered Cache settings</returns>
+    ValueTask<Zone_settings_edit_single_setting_Response_200_application_json> DisableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
 }
