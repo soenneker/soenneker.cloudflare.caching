@@ -210,4 +210,110 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             throw;
         }
     }
+
+    public async ValueTask<Zone_settings_get_single_setting_Response_200_application_json?> GetCrawlerHints(string zoneId,
+        CancellationToken cancellationToken = default)
+    {
+        _logger.LogInformation("Getting Crawler Hints settings for zone {ZoneId}", zoneId);
+        CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
+        try
+        {
+            return await client.Zones[zoneId].Settings["crawler_hints"].GetAsync(cancellationToken: cancellationToken).NoSync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting Crawler Hints settings for zone {ZoneId}", zoneId);
+            throw;
+        }
+    }
+
+    public async ValueTask<Zone_settings_edit_single_setting_Response_200_application_json?> UpdateCrawlerHints(string zoneId,
+        bool enabled, CancellationToken cancellationToken = default)
+    {
+        _logger.LogInformation("Updating Crawler Hints settings for zone {ZoneId} to {Enabled}", zoneId, enabled);
+        CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
+        try
+        {
+            var requestBody = new Zones_zone_settings_single_request
+            {
+                AdditionalData =
+                {
+                    ["value"] = enabled ? "on" : "off"
+                }
+            };
+            return await client.Zones[zoneId].Settings["crawler_hints"].PatchAsync(requestBody, cancellationToken: cancellationToken).NoSync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating Crawler Hints settings for zone {ZoneId}", zoneId);
+            throw;
+        }
+    }
+
+    public async ValueTask<Zone_settings_edit_single_setting_Response_200_application_json?> EnableCrawlerHints(string zoneId,
+        CancellationToken cancellationToken = default)
+    {
+        _logger.LogInformation("Enabling Crawler Hints for zone {ZoneId}", zoneId);
+        return await UpdateCrawlerHints(zoneId, true, cancellationToken);
+    }
+
+    public async ValueTask<Zone_settings_edit_single_setting_Response_200_application_json?> DisableCrawlerHints(string zoneId,
+        CancellationToken cancellationToken = default)
+    {
+        _logger.LogInformation("Disabling Crawler Hints for zone {ZoneId}", zoneId);
+        return await UpdateCrawlerHints(zoneId, false, cancellationToken);
+    }
+
+    public async ValueTask<Zone_settings_get_single_setting_Response_200_application_json?> GetAlwaysOnline(string zoneId,
+        CancellationToken cancellationToken = default)
+    {
+        _logger.LogInformation("Getting Always Online settings for zone {ZoneId}", zoneId);
+        CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
+        try
+        {
+            return await client.Zones[zoneId].Settings["always_online"].GetAsync(cancellationToken: cancellationToken).NoSync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting Always Online settings for zone {ZoneId}", zoneId);
+            throw;
+        }
+    }
+
+    public async ValueTask<Zone_settings_edit_single_setting_Response_200_application_json?> UpdateAlwaysOnline(string zoneId,
+        bool enabled, CancellationToken cancellationToken = default)
+    {
+        _logger.LogInformation("Updating Always Online settings for zone {ZoneId} to {Enabled}", zoneId, enabled);
+        CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
+        try
+        {
+            var requestBody = new Zones_zone_settings_single_request
+            {
+                AdditionalData =
+                {
+                    ["value"] = enabled ? "on" : "off"
+                }
+            };
+            return await client.Zones[zoneId].Settings["always_online"].PatchAsync(requestBody, cancellationToken: cancellationToken).NoSync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating Always Online settings for zone {ZoneId}", zoneId);
+            throw;
+        }
+    }
+
+    public async ValueTask<Zone_settings_edit_single_setting_Response_200_application_json?> EnableAlwaysOnline(string zoneId,
+        CancellationToken cancellationToken = default)
+    {
+        _logger.LogInformation("Enabling Always Online for zone {ZoneId}", zoneId);
+        return await UpdateAlwaysOnline(zoneId, true, cancellationToken);
+    }
+
+    public async ValueTask<Zone_settings_edit_single_setting_Response_200_application_json?> DisableAlwaysOnline(string zoneId,
+        CancellationToken cancellationToken = default)
+    {
+        _logger.LogInformation("Disabling Always Online for zone {ZoneId}", zoneId);
+        return await UpdateAlwaysOnline(zoneId, false, cancellationToken);
+    }
 }
