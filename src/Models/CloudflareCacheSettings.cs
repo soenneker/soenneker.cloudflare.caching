@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Soenneker.Cloudflare.OpenApiClient.Models;
 
 namespace Soenneker.Cloudflare.Caching.Models;
 
@@ -11,7 +12,7 @@ public class CloudflareCacheSettings
     /// The browser cache TTL in seconds
     /// </summary>
     [JsonPropertyName("browser_cache_ttl")]
-    public int BrowserCacheTtl { get; set; }
+    public int? BrowserCacheTtl { get; set; }
 
     /// <summary>
     /// Whether to respect the origin's cache control headers
@@ -23,25 +24,25 @@ public class CloudflareCacheSettings
     /// The cache level setting
     /// </summary>
     [JsonPropertyName("cache_level")]
-    public string? CacheLevel { get; set; }
+    public Zones_schemasCache_level_value? CacheLevel { get; set; }
 
     /// <summary>
     /// Whether to enable always online
     /// </summary>
     [JsonPropertyName("always_online")]
-    public string? AlwaysOnline { get; set; }
+    public Zones_always_online_value AlwaysOnline { get; set; }
 
     /// <summary>
     /// The development mode status
     /// </summary>
     [JsonPropertyName("development_mode")]
-    public int DevelopmentMode { get; set; }
+    public Zones_development_mode_value DevelopmentMode { get; set; }
 
     /// <summary>
     /// Whether to enable query string sort
     /// </summary>
     [JsonPropertyName("query_string_sort")]
-    public bool QueryStringSort { get; set; }
+    public Zones_schemasSort_query_string_for_cache_value QueryStringSort { get; set; }
 
     /// <summary>
     /// Whether to purge cache on change
