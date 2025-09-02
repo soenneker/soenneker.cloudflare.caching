@@ -24,7 +24,7 @@ public class CloudflareCacheSettings
     /// The cache level setting
     /// </summary>
     [JsonPropertyName("cache_level")]
-    public Zones_schemasCache_level_value? CacheLevel { get; set; }
+    public Zones_schemas_cache_level_value? CacheLevel { get; set; }
 
     /// <summary>
     /// Whether to enable always online
@@ -42,7 +42,7 @@ public class CloudflareCacheSettings
     /// Whether to enable query string sort
     /// </summary>
     [JsonPropertyName("query_string_sort")]
-    public Zones_schemasSort_query_string_for_cache_value QueryStringSort { get; set; }
+    public Zones_schemas_sort_query_string_for_cache_value? QueryStringSort { get; set; }
 
     /// <summary>
     /// Whether to purge cache on change
