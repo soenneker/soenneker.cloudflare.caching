@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Soenneker.Cloudflare.Caching;
 
+///<inheritdoc cref="ICloudflareCachingUtil"/>
 public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
 {
     private readonly ILogger<CloudflareCachingUtil> _logger;
@@ -134,7 +135,7 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
                 updateTasks.Add(client.Zones[zoneId].Settings["browser_cache_ttl"].PatchAsync(browserCacheRequest, cancellationToken: cancellationToken));
             }
             
-            // Update query string sort (uses Branch39 for double values)
+            // Update query string sort (uses Branch35 for double values)
             if (settings.QueryStringSort.HasValue)
             {
                 var queryStringRequest = new Zones_zone_settings_single_request
@@ -143,9 +144,9 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
                     {
                         Value = new Zones_setting_value
                         {
-                            ZonesSettingValueBranch39 = new Zones_setting_value_Branch39
+                            ZonesSettingValueBranch35 = new Zones_setting_value_Branch35
                             {
-                                Value = (double)settings.QueryStringSort.Value
+                                Value = (int)settings.QueryStringSort.Value
                             }
                         }
                     }
