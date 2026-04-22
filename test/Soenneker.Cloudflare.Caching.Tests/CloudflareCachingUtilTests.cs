@@ -1,20 +1,19 @@
-﻿using Soenneker.Cloudflare.Caching.Abstract;
-using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Cloudflare.Caching.Abstract;
+using Soenneker.Tests.HostedUnit;
 
 namespace Soenneker.Cloudflare.Caching.Tests;
 
-[Collection("Collection")]
-public sealed class CloudflareCachingUtilTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public sealed class CloudflareCachingUtilTests : HostedUnitTest
 {
     private readonly ICloudflareCachingUtil _util;
 
-    public CloudflareCachingUtilTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public CloudflareCachingUtilTests(Host host) : base(host)
     {
         _util = Resolve<ICloudflareCachingUtil>(true);
     }
 
-    [Fact]
+    [Test]
     public void Default()
     {
 
