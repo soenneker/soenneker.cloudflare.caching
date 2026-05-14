@@ -35,7 +35,7 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             // Get each setting individually instead of using the obsolete bulk GetAsync
             try
             {
-                Zone_settings_get_single_setting_200? browserCacheResponse = await client.Zones[zoneId].Settings["browser_cache_ttl"].GetAsync(cancellationToken: cancellationToken).NoSync();
+                ZoneSettingsGetSingleSetting200? browserCacheResponse = await client.Zones[zoneId].Settings["browser_cache_ttl"].GetAsync(cancellationToken: cancellationToken).NoSync();
                 if (browserCacheResponse?.Result?.ZonesSchemasBrowserCacheTtl != null)
                 {
                     settings.BrowserCacheTtl = browserCacheResponse.Result.ZonesSchemasBrowserCacheTtl.Value;
@@ -48,7 +48,7 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             
             try
             {
-                Zone_settings_get_single_setting_200? queryStringResponse = await client.Zones[zoneId].Settings["sort_query_string_for_cache"].GetAsync(cancellationToken: cancellationToken).NoSync();
+                ZoneSettingsGetSingleSetting200? queryStringResponse = await client.Zones[zoneId].Settings["sort_query_string_for_cache"].GetAsync(cancellationToken: cancellationToken).NoSync();
                 if (queryStringResponse?.Result?.ZonesSchemasSortQueryStringForCache?.Value != null)
                 {
                     settings.QueryStringSort = queryStringResponse.Result.ZonesSchemasSortQueryStringForCache.Value;
@@ -61,7 +61,7 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             
             try
             {
-                Zone_settings_get_single_setting_200? cacheLevelResponse = await client.Zones[zoneId].Settings["cache_level"].GetAsync(cancellationToken: cancellationToken).NoSync();
+                ZoneSettingsGetSingleSetting200? cacheLevelResponse = await client.Zones[zoneId].Settings["cache_level"].GetAsync(cancellationToken: cancellationToken).NoSync();
                 if (cacheLevelResponse?.Result?.ZonesSchemasCacheLevel != null)
                 {
                     settings.CacheLevel = cacheLevelResponse.Result.ZonesSchemasCacheLevel.Value;
@@ -74,7 +74,7 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             
             try
             {
-                Zone_settings_get_single_setting_200? alwaysOnlineResponse = await client.Zones[zoneId].Settings["always_online"].GetAsync(cancellationToken: cancellationToken).NoSync();
+                ZoneSettingsGetSingleSetting200? alwaysOnlineResponse = await client.Zones[zoneId].Settings["always_online"].GetAsync(cancellationToken: cancellationToken).NoSync();
                 if (alwaysOnlineResponse?.Result?.ZonesAlwaysOnline?.Value != null)
                 {
                     settings.AlwaysOnline = alwaysOnlineResponse.Result.ZonesAlwaysOnline.Value.Value;
@@ -87,7 +87,7 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             
             try
             {
-                Zone_settings_get_single_setting_200? developmentModeResponse = await client.Zones[zoneId].Settings["development_mode"].GetAsync(cancellationToken: cancellationToken).NoSync();
+                ZoneSettingsGetSingleSetting200? developmentModeResponse = await client.Zones[zoneId].Settings["development_mode"].GetAsync(cancellationToken: cancellationToken).NoSync();
                 if (developmentModeResponse?.Result?.ZonesDevelopmentMode?.Value != null)
                 {
                     settings.DevelopmentMode = developmentModeResponse.Result.ZonesDevelopmentMode.Value.Value;
@@ -119,13 +119,13 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             // Update browser cache TTL (uses Branch8 for integer values)
             if (settings.BrowserCacheTtl.HasValue)
             {
-                var browserCacheRequest = new Zones_zone_settings_single_request
+                var browserCacheRequest = new ZonesZoneSettingsSingleRequest
                 {
-                    ZonesZoneSettingsSingleRequestMember2 = new Zones_zone_settings_single_requestMember2
+                    ZonesZoneSettingsSingleRequestMember2 = new ZonesZoneSettingsSingleRequestMember2
                     {
-                        Value = new Zones_setting_value
+                        Value = new ZonesSettingValue
                         {
-                            ZonesSettingValueBranch8 = new Zones_setting_value_Branch8
+                            ZonesSettingValueBranch8 = new ZonesSettingValue_Branch8
                             {
                                 Value = settings.BrowserCacheTtl.Value
                             }
@@ -138,13 +138,13 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             // Update query string sort (uses Branch35 for double values)
             if (settings.QueryStringSort.HasValue)
             {
-                var queryStringRequest = new Zones_zone_settings_single_request
+                var queryStringRequest = new ZonesZoneSettingsSingleRequest
                 {
-                    ZonesZoneSettingsSingleRequestMember2 = new Zones_zone_settings_single_requestMember2
+                    ZonesZoneSettingsSingleRequestMember2 = new ZonesZoneSettingsSingleRequestMember2
                     {
-                        Value = new Zones_setting_value
+                        Value = new ZonesSettingValue
                         {
-                            ZonesSettingValueBranch35 = new Zones_setting_value_Branch35
+                            ZonesSettingValueBranch35 = new ZonesSettingValue_Branch35
                             {
                                 Value = (int)settings.QueryStringSort.Value
                             }
@@ -157,15 +157,15 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             // Update cache level (uses wrapper for enum values)
             if (settings.CacheLevel.HasValue)
             {
-                var cacheLevelRequest = new Zones_zone_settings_single_request
+                var cacheLevelRequest = new ZonesZoneSettingsSingleRequest
                 {
-                    ZonesZoneSettingsSingleRequestMember2 = new Zones_zone_settings_single_requestMember2
+                    ZonesZoneSettingsSingleRequestMember2 = new ZonesZoneSettingsSingleRequestMember2
                     {
-                        Value = new Zones_setting_value
+                        Value = new ZonesSettingValue
                         {
-                            ZonesCacheLevelValueWrapper = new Zones_cache_level_value_Wrapper
+                            ZonesCacheLevelValueWrapper = new ZonesCacheLevelValue_Wrapper
                             {
-                                Value = (Zones_cache_level_value)settings.CacheLevel.Value
+                                Value = (ZonesCacheLevelValue)settings.CacheLevel.Value
                             }
                         }
                     }
@@ -174,13 +174,13 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             }
             
             // Update always online (uses wrapper for enum values)
-            var alwaysOnlineRequest = new Zones_zone_settings_single_request
+            var alwaysOnlineRequest = new ZonesZoneSettingsSingleRequest
             {
-                ZonesZoneSettingsSingleRequestMember2 = new Zones_zone_settings_single_requestMember2
+                ZonesZoneSettingsSingleRequestMember2 = new ZonesZoneSettingsSingleRequestMember2
                 {
-                    Value = new Zones_setting_value
+                    Value = new ZonesSettingValue
                     {
-                        ZonesAlwaysOnlineValueWrapper = new Zones_always_online_value_Wrapper
+                        ZonesAlwaysOnlineValueWrapper = new ZonesAlwaysOnlineValue_Wrapper
                         {
                             Value = settings.AlwaysOnline
                         }
@@ -190,13 +190,13 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             updateTasks.Add(client.Zones[zoneId].Settings["always_online"].PatchAsync(alwaysOnlineRequest, cancellationToken: cancellationToken));
             
             // Update development mode (uses wrapper for enum values)
-            var developmentModeRequest = new Zones_zone_settings_single_request
+            var developmentModeRequest = new ZonesZoneSettingsSingleRequest
             {
-                ZonesZoneSettingsSingleRequestMember2 = new Zones_zone_settings_single_requestMember2
+                ZonesZoneSettingsSingleRequestMember2 = new ZonesZoneSettingsSingleRequestMember2
                 {
-                    Value = new Zones_setting_value
+                    Value = new ZonesSettingValue
                     {
-                        ZonesDevelopmentModeValueWrapper = new Zones_development_mode_value_Wrapper
+                        ZonesDevelopmentModeValueWrapper = new ZonesDevelopmentModeValue_Wrapper
                         {
                             Value = settings.DevelopmentMode
                         }
@@ -225,15 +225,15 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         try
         {
             CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
-            var request = new Zone_purge
+            var request = new ZonePurge
             {
-                CachePurgeSingleFile = new Cache_purge_SingleFile
+                CachePurgeSingleFile = new CachePurgeSingleFile
                 {
                     Files = urls
                 }
             };
 
-            Cache_purge_api_response_single_id? response = await client.Zones[zoneId].Purge_cache.PostAsync(request, cancellationToken: cancellationToken).NoSync();
+            CachePurgeApiResponseSingleId? response = await client.Zones[zoneId].Purge_cache.PostAsync(request, cancellationToken: cancellationToken).NoSync();
             return response?.Result?.Id != null;
         }
         catch (Exception ex)
@@ -249,15 +249,15 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         {
             CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
 
-            var request = new Zone_purge
+            var request = new ZonePurge
             {
-                CachePurgeFlexPurgeByHostnames = new Cache_purge_FlexPurgeByHostnames
+                CachePurgeFlexPurgeByHostnames = new CachePurgeFlexPurgeByHostnames
                 {
                     Hosts = hostnames
                 }
             };
 
-            Cache_purge_api_response_single_id? response = await client.Zones[zoneId].Purge_cache.PostAsync(request, cancellationToken: cancellationToken).NoSync();
+            CachePurgeApiResponseSingleId? response = await client.Zones[zoneId].Purge_cache.PostAsync(request, cancellationToken: cancellationToken).NoSync();
             return response?.Success == true;
         }
         catch (Exception ex)
@@ -273,15 +273,15 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         {
             CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
 
-            var request = new Zone_purge
+            var request = new ZonePurge
             {
-                CachePurgeFlexPurgeByTags = new Cache_purge_FlexPurgeByTags
+                CachePurgeFlexPurgeByTags = new CachePurgeFlexPurgeByTags
                 {
                     Tags = tags
                 }
             };
 
-            Cache_purge_api_response_single_id? response = await client.Zones[zoneId].Purge_cache.PostAsync(request, cancellationToken: cancellationToken).NoSync();
+            CachePurgeApiResponseSingleId? response = await client.Zones[zoneId].Purge_cache.PostAsync(request, cancellationToken: cancellationToken).NoSync();
             return response?.Success == true;
         }
         catch (Exception ex)
@@ -297,15 +297,15 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         {
             CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
 
-            var request = new Zone_purge
+            var request = new ZonePurge
             {
-                CachePurgeFlexPurgeByPrefixes = new Cache_purge_FlexPurgeByPrefixes
+                CachePurgeFlexPurgeByPrefixes = new CachePurgeFlexPurgeByPrefixes
                 {
                     Prefixes = prefixes
                 }
             };
 
-            Cache_purge_api_response_single_id? response = await client.Zones[zoneId].Purge_cache.PostAsync(request, cancellationToken: cancellationToken).NoSync();
+            CachePurgeApiResponseSingleId? response = await client.Zones[zoneId].Purge_cache.PostAsync(request, cancellationToken: cancellationToken).NoSync();
             return response?.Success == true;
         }
         catch (Exception ex)
@@ -320,15 +320,15 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         try
         {
             CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
-            var request = new Zone_purge
+            var request = new ZonePurge
             {
-                CachePurgeEverything = new Cache_purge_Everything
+                CachePurgeEverything = new CachePurgeEverything
                 {
                     PurgeEverything = true
                 }
             };
 
-            Cache_purge_api_response_single_id? response = await client.Zones[zoneId].Purge_cache.PostAsync(request, cancellationToken: cancellationToken).NoSync();
+            CachePurgeApiResponseSingleId? response = await client.Zones[zoneId].Purge_cache.PostAsync(request, cancellationToken: cancellationToken).NoSync();
             return response?.Success == true;
         }
         catch (Exception ex)
@@ -338,7 +338,7 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public async ValueTask<Smart_tiered_cache_get_smart_tiered_cache_setting_200?> GetSmartTieredCache(string zoneId,
+    public async ValueTask<SmartTieredCacheGetSmartTieredCacheSetting200?> GetSmartTieredCache(string zoneId,
         CancellationToken cancellationToken = default)
     {
         try
@@ -353,15 +353,15 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public async ValueTask<Smart_tiered_cache_patch_smart_tiered_cache_setting_200?> UpdateSmartTieredCache(string zoneId, bool enabled,
+    public async ValueTask<SmartTieredCachePatchSmartTieredCacheSetting200?> UpdateSmartTieredCache(string zoneId, bool enabled,
         CancellationToken cancellationToken = default)
     {
         try
         {
             CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
-            var request = new Cache_rules_smart_tiered_cache_patch
+            var request = new CacheRulesSmartTieredCachePatch
             {
-                Value = enabled ? Cache_rules_smart_tiered_cache_patch_value.On : Cache_rules_smart_tiered_cache_patch_value.Off
+                Value = enabled ? CacheRulesSmartTieredCachePatch_value.On : CacheRulesSmartTieredCachePatch_value.Off
             };
 
             return await client.Zones[zoneId].Cache.Tiered_cache_smart_topology_enable.PatchAsync(request, cancellationToken: cancellationToken).NoSync();
@@ -373,19 +373,19 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public ValueTask<Smart_tiered_cache_patch_smart_tiered_cache_setting_200?> EnableSmartTieredCache(string zoneId,
+    public ValueTask<SmartTieredCachePatchSmartTieredCacheSetting200?> EnableSmartTieredCache(string zoneId,
         CancellationToken cancellationToken = default)
     {
         return UpdateSmartTieredCache(zoneId, true, cancellationToken);
     }
 
-    public ValueTask<Smart_tiered_cache_patch_smart_tiered_cache_setting_200?> DisableSmartTieredCache(string zoneId,
+    public ValueTask<SmartTieredCachePatchSmartTieredCacheSetting200?> DisableSmartTieredCache(string zoneId,
         CancellationToken cancellationToken = default)
     {
         return UpdateSmartTieredCache(zoneId, false, cancellationToken);
     }
 
-    public async ValueTask<Zone_settings_get_single_setting_200?> GetCrawlerHints(string zoneId, CancellationToken cancellationToken = default)
+    public async ValueTask<ZoneSettingsGetSingleSetting200?> GetCrawlerHints(string zoneId, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -399,15 +399,15 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public async ValueTask<Zone_settings_edit_single_setting_200?> UpdateCrawlerHints(string zoneId, bool enabled, CancellationToken cancellationToken = default)
+    public async ValueTask<ZoneSettingsEditSingleSetting200?> UpdateCrawlerHints(string zoneId, bool enabled, CancellationToken cancellationToken = default)
     {
         try
         {
             CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
 
-            var request = new Zones_zone_settings_single_request
+            var request = new ZonesZoneSettingsSingleRequest
             {
-                ZonesZoneSettingsSingleRequestMember1 = new Zones_zone_settings_single_requestMember1
+                ZonesZoneSettingsSingleRequestMember1 = new ZonesZoneSettingsSingleRequestMember1
                 {
                     Enabled = enabled
                 }
@@ -422,19 +422,19 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public ValueTask<Zone_settings_edit_single_setting_200?> EnableCrawlerHints(string zoneId,
+    public ValueTask<ZoneSettingsEditSingleSetting200?> EnableCrawlerHints(string zoneId,
         CancellationToken cancellationToken = default)
     {
         return UpdateCrawlerHints(zoneId, true, cancellationToken);
     }
 
-    public ValueTask<Zone_settings_edit_single_setting_200?> DisableCrawlerHints(string zoneId,
+    public ValueTask<ZoneSettingsEditSingleSetting200?> DisableCrawlerHints(string zoneId,
         CancellationToken cancellationToken = default)
     {
         return UpdateCrawlerHints(zoneId, false, cancellationToken);
     }
 
-    public async ValueTask<Zone_settings_get_single_setting_200?> GetAlwaysOnline(string zoneId, CancellationToken cancellationToken = default)
+    public async ValueTask<ZoneSettingsGetSingleSetting200?> GetAlwaysOnline(string zoneId, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -448,16 +448,16 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public async ValueTask<Zone_settings_edit_single_setting_200?> UpdateAlwaysOnline(string zoneId, bool enabled,
+    public async ValueTask<ZoneSettingsEditSingleSetting200?> UpdateAlwaysOnline(string zoneId, bool enabled,
         CancellationToken cancellationToken = default)
     {
         try
         {
             CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
 
-            var request = new Zones_zone_settings_single_request
+            var request = new ZonesZoneSettingsSingleRequest
             {
-                ZonesZoneSettingsSingleRequestMember1 = new Zones_zone_settings_single_requestMember1
+                ZonesZoneSettingsSingleRequestMember1 = new ZonesZoneSettingsSingleRequestMember1
                 {
                     Enabled = enabled
                 }
@@ -472,13 +472,13 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public ValueTask<Zone_settings_edit_single_setting_200?> EnableAlwaysOnline(string zoneId,
+    public ValueTask<ZoneSettingsEditSingleSetting200?> EnableAlwaysOnline(string zoneId,
         CancellationToken cancellationToken = default)
     {
         return UpdateAlwaysOnline(zoneId, true, cancellationToken);
     }
 
-    public ValueTask<Zone_settings_edit_single_setting_200?> DisableAlwaysOnline(string zoneId,
+    public ValueTask<ZoneSettingsEditSingleSetting200?> DisableAlwaysOnline(string zoneId,
         CancellationToken cancellationToken = default)
     {
         return UpdateAlwaysOnline(zoneId, false, cancellationToken);

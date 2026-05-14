@@ -24,25 +24,25 @@ public class CloudflareCacheSettings
     /// The cache level setting
     /// </summary>
     [JsonPropertyName("cache_level")]
-    public Zones_schemas_cache_level_value? CacheLevel { get; set; }
+    public ZonesCacheLevelValue? CacheLevel { get; set; }
 
     /// <summary>
     /// Whether to enable always online
     /// </summary>
     [JsonPropertyName("always_online")]
-    public Zones_always_online_value AlwaysOnline { get; set; }
+    public ZonesAlwaysOnlineValue AlwaysOnline { get; set; }
 
     /// <summary>
     /// The development mode status
     /// </summary>
     [JsonPropertyName("development_mode")]
-    public Zones_development_mode_value DevelopmentMode { get; set; }
+    public ZonesDevelopmentModeValue DevelopmentMode { get; set; }
 
     /// <summary>
     /// Whether to enable query string sort
     /// </summary>
     [JsonPropertyName("query_string_sort")]
-    public Zones_schemas_sort_query_string_for_cache_value? QueryStringSort { get; set; }
+    public ZonesSortQueryStringForCacheValue? QueryStringSort { get; set; }
 
     /// <summary>
     /// Whether to purge cache on change
