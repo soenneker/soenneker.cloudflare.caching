@@ -21,6 +21,11 @@ public static class CloudflareCachingRegistrar
         return services;
     }
 
+    /// <summary>
+    /// Adds cloudflare caching util as scoped.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <returns>The result of the operation.</returns>
     public static IServiceCollection AddCloudflareCachingUtilAsScoped(this IServiceCollection services)
     {
         services.AddCloudflareClientUtilAsSingleton().TryAddScoped<ICloudflareCachingUtil, CloudflareCachingUtil>();
