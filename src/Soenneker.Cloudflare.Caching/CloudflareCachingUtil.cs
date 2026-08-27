@@ -315,11 +315,22 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         }
     }
 
-    public async ValueTask<bool> PurgeEverything(string zoneId, CancellationToken cancellationToken = default)
+    public ValueTask<bool> PurgeEverything(string zoneId, CancellationToken cancellationToken = default) =>
+        PurgeEverythingCore(zoneId, null, cancellationToken);
+
+    public ValueTask<bool> PurgeEverything(string zoneId, string apiKey, CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(apiKey);
+        return PurgeEverythingCore(zoneId, apiKey, cancellationToken);
+    }
+
+    private async ValueTask<bool> PurgeEverythingCore(string zoneId, string? apiKey, CancellationToken cancellationToken)
     {
         try
         {
-            CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
+            CloudflareOpenApiClient client = apiKey == null
+                ? await _client.Get(cancellationToken).NoSync()
+                : await _client.Get(apiKey, cancellationToken).NoSync();
             var request = new ZonePurge
             {
                 CachePurgeEverything = new CachePurgeEverything

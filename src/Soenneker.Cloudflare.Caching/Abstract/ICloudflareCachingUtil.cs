@@ -73,6 +73,15 @@ public interface ICloudflareCachingUtil
     ValueTask<bool> PurgeEverything(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
+    /// Purges everything from the cache using the specified API key.
+    /// </summary>
+    /// <param name="zoneId">The zone ID.</param>
+    /// <param name="apiKey">The Cloudflare API key to use for the request.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>Whether the purge was successful.</returns>
+    ValueTask<bool> PurgeEverything(string zoneId, string apiKey, CancellationToken cancellationToken = default);
+
+    /// <summary>
     /// Gets the Smart Tiered Cache settings for a zone
     /// </summary>
     /// <param name="zoneId">The zone ID</param>
