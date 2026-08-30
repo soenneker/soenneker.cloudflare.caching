@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 namespace Soenneker.Cloudflare.Caching;
 
-///<inheritdoc cref="ICloudflareCachingUtil"/>
 public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
 {
     private readonly ILogger<CloudflareCachingUtil> _logger;
@@ -173,37 +172,43 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
                 updateTasks.Add(client.Zones[zoneId].Settings["cache_level"].PatchAsync(cacheLevelRequest, cancellationToken: cancellationToken));
             }
             
-            // Update always online (uses wrapper for enum values)
-            var alwaysOnlineRequest = new ZonesZoneSettingsSingleRequest
+            // Update always online only when the caller supplied it.
+            if (settings.AlwaysOnline.HasValue)
             {
-                ZonesZoneSettingsSingleRequestMember2 = new ZonesZoneSettingsSingleRequestMember2
+                var alwaysOnlineRequest = new ZonesZoneSettingsSingleRequest
                 {
-                    Value = new ZonesSettingValue
+                    ZonesZoneSettingsSingleRequestMember2 = new ZonesZoneSettingsSingleRequestMember2
                     {
-                        ZonesAlwaysOnlineValueWrapper = new ZonesAlwaysOnlineValue_Wrapper
+                        Value = new ZonesSettingValue
                         {
-                            Value = settings.AlwaysOnline
+                            ZonesAlwaysOnlineValueWrapper = new ZonesAlwaysOnlineValue_Wrapper
+                            {
+                                Value = settings.AlwaysOnline.Value
+                            }
                         }
                     }
-                }
-            };
-            updateTasks.Add(client.Zones[zoneId].Settings["always_online"].PatchAsync(alwaysOnlineRequest, cancellationToken: cancellationToken));
+                };
+                updateTasks.Add(client.Zones[zoneId].Settings["always_online"].PatchAsync(alwaysOnlineRequest, cancellationToken: cancellationToken));
+            }
             
-            // Update development mode (uses wrapper for enum values)
-            var developmentModeRequest = new ZonesZoneSettingsSingleRequest
+            // Update development mode only when the caller supplied it.
+            if (settings.DevelopmentMode.HasValue)
             {
-                ZonesZoneSettingsSingleRequestMember2 = new ZonesZoneSettingsSingleRequestMember2
+                var developmentModeRequest = new ZonesZoneSettingsSingleRequest
                 {
-                    Value = new ZonesSettingValue
+                    ZonesZoneSettingsSingleRequestMember2 = new ZonesZoneSettingsSingleRequestMember2
                     {
-                        ZonesDevelopmentModeValueWrapper = new ZonesDevelopmentModeValue_Wrapper
+                        Value = new ZonesSettingValue
                         {
-                            Value = settings.DevelopmentMode
+                            ZonesDevelopmentModeValueWrapper = new ZonesDevelopmentModeValue_Wrapper
+                            {
+                                Value = settings.DevelopmentMode.Value
+                            }
                         }
                     }
-                }
-            };
-            updateTasks.Add(client.Zones[zoneId].Settings["development_mode"].PatchAsync(developmentModeRequest, cancellationToken: cancellationToken));
+                };
+                updateTasks.Add(client.Zones[zoneId].Settings["development_mode"].PatchAsync(developmentModeRequest, cancellationToken: cancellationToken));
+            }
             
             // Wait for all updates to complete
             if (updateTasks.Count > 0)

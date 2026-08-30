@@ -30,13 +30,13 @@ public class CloudflareCacheSettings
     /// Whether to enable always online
     /// </summary>
     [JsonPropertyName("always_online")]
-    public ZonesAlwaysOnlineValue AlwaysOnline { get; set; }
+    public ZonesAlwaysOnlineValue? AlwaysOnline { get; set; }
 
     /// <summary>
     /// The development mode status
     /// </summary>
     [JsonPropertyName("development_mode")]
-    public ZonesDevelopmentModeValue DevelopmentMode { get; set; }
+    public ZonesDevelopmentModeValue? DevelopmentMode { get; set; }
 
     /// <summary>
     /// Whether to enable query string sort
@@ -49,4 +49,4 @@ public class CloudflareCacheSettings
     /// </summary>
     [JsonPropertyName("purge_cache_on_change")]
     public bool PurgeCacheOnChange { get; set; }
-} 
+}
