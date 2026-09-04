@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Soenneker.Cloudflare.Caching;
 
+/// <inheritdoc cref="ICloudflareCachingUtil" />
 public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
 {
     private readonly ILogger<CloudflareCachingUtil> _logger;
