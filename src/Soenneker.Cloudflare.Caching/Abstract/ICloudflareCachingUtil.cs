@@ -87,7 +87,7 @@ public interface ICloudflareCachingUtil
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The Smart Tiered Cache settings</returns>
-    ValueTask<SmartTieredCacheGetSmartTieredCacheSetting200?> GetSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
+    ValueTask<SmartTieredCacheGetSmartTieredCacheSetting200Response?> GetSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the Smart Tiered Cache settings for a zone
@@ -96,7 +96,7 @@ public interface ICloudflareCachingUtil
     /// <param name="enabled">Whether to enable Smart Tiered Cache</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The updated Smart Tiered Cache settings</returns>
-    ValueTask<SmartTieredCachePatchSmartTieredCacheSetting200?> UpdateSmartTieredCache(string zoneId, bool enabled, CancellationToken cancellationToken = default);
+    ValueTask<SmartTieredCachePatchSmartTieredCacheSetting200Response?> UpdateSmartTieredCache(string zoneId, bool enabled, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Enables Smart Tiered Cache for a zone
@@ -104,7 +104,7 @@ public interface ICloudflareCachingUtil
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The updated Smart Tiered Cache settings</returns>
-    ValueTask<SmartTieredCachePatchSmartTieredCacheSetting200?> EnableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
+    ValueTask<SmartTieredCachePatchSmartTieredCacheSetting200Response?> EnableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Disables Smart Tiered Cache for a zone
@@ -112,7 +112,7 @@ public interface ICloudflareCachingUtil
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The updated Smart Tiered Cache settings</returns>
-    ValueTask<SmartTieredCachePatchSmartTieredCacheSetting200?> DisableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
+    ValueTask<SmartTieredCachePatchSmartTieredCacheSetting200Response?> DisableSmartTieredCache(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets the Crawler Hints settings for a zone
@@ -120,7 +120,7 @@ public interface ICloudflareCachingUtil
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The Crawler Hints settings</returns>
-    ValueTask<ZoneSettingsGetSingleSetting200?> GetCrawlerHints(string zoneId, CancellationToken cancellationToken = default);
+    ValueTask<ZoneSettingsGetSingleSetting200Response?> GetCrawlerHints(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the Crawler Hints settings for a zone
@@ -129,7 +129,7 @@ public interface ICloudflareCachingUtil
     /// <param name="enabled">Whether to enable Crawler Hints</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The updated Crawler Hints settings</returns>
-    ValueTask<ZoneSettingsEditSingleSetting200?> UpdateCrawlerHints(string zoneId, bool enabled, CancellationToken cancellationToken = default);
+    ValueTask<ZoneSettingsEditSingleSetting200Response?> UpdateCrawlerHints(string zoneId, bool enabled, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Enables Crawler Hints for a zone
@@ -137,7 +137,7 @@ public interface ICloudflareCachingUtil
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The updated Crawler Hints settings</returns>
-    ValueTask<ZoneSettingsEditSingleSetting200?> EnableCrawlerHints(string zoneId, CancellationToken cancellationToken = default);
+    ValueTask<ZoneSettingsEditSingleSetting200Response?> EnableCrawlerHints(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Disables Crawler Hints for a zone
@@ -145,7 +145,7 @@ public interface ICloudflareCachingUtil
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The updated Crawler Hints settings</returns>
-    ValueTask<ZoneSettingsEditSingleSetting200?> DisableCrawlerHints(string zoneId, CancellationToken cancellationToken = default);
+    ValueTask<ZoneSettingsEditSingleSetting200Response?> DisableCrawlerHints(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets the Always Online settings for a zone
@@ -153,7 +153,7 @@ public interface ICloudflareCachingUtil
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The Always Online settings</returns>
-    ValueTask<ZoneSettingsGetSingleSetting200?> GetAlwaysOnline(string zoneId, CancellationToken cancellationToken = default);
+    ValueTask<ZoneSettingsGetSingleSetting200Response?> GetAlwaysOnline(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates the Always Online settings for a zone
@@ -162,7 +162,7 @@ public interface ICloudflareCachingUtil
     /// <param name="enabled">Whether to enable Always Online</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The updated Always Online settings</returns>
-    ValueTask<ZoneSettingsEditSingleSetting200?> UpdateAlwaysOnline(string zoneId, bool enabled, CancellationToken cancellationToken = default);
+    ValueTask<ZoneSettingsEditSingleSetting200Response?> UpdateAlwaysOnline(string zoneId, bool enabled, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Enables Always Online for a zone
@@ -170,7 +170,7 @@ public interface ICloudflareCachingUtil
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The updated Always Online settings</returns>
-    ValueTask<ZoneSettingsEditSingleSetting200?> EnableAlwaysOnline(string zoneId, CancellationToken cancellationToken = default);
+    ValueTask<ZoneSettingsEditSingleSetting200Response?> EnableAlwaysOnline(string zoneId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Disables Always Online for a zone
@@ -178,5 +178,5 @@ public interface ICloudflareCachingUtil
     /// <param name="zoneId">The zone ID</param>
     /// <param name="cancellationToken">The cancellation token</param>
     /// <returns>The updated Always Online settings</returns>
-    ValueTask<ZoneSettingsEditSingleSetting200?> DisableAlwaysOnline(string zoneId, CancellationToken cancellationToken = default);
+    ValueTask<ZoneSettingsEditSingleSetting200Response?> DisableAlwaysOnline(string zoneId, CancellationToken cancellationToken = default);
 }
