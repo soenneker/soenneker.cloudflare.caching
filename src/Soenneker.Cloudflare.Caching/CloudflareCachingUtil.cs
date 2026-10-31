@@ -216,7 +216,7 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         try
         {
             CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
-            var request = new ZonePurgeRequest
+            var request = new ZoneEnvironmentInvalidateRequest
             {
                 CachePurgeSingleFile = new CachePurgeSingleFile
                 {
@@ -240,7 +240,7 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         {
             CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
 
-            var request = new ZonePurgeRequest
+            var request = new ZoneEnvironmentInvalidateRequest
             {
                 CachePurgeFlexPurgeByHostnames = new CachePurgeFlexPurgeByHostnames
                 {
@@ -264,7 +264,7 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         {
             CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
 
-            var request = new ZonePurgeRequest
+            var request = new ZoneEnvironmentInvalidateRequest
             {
                 CachePurgeFlexPurgeByTags = new CachePurgeFlexPurgeByTags
                 {
@@ -288,7 +288,7 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
         {
             CloudflareOpenApiClient client = await _client.Get(cancellationToken).NoSync();
 
-            var request = new ZonePurgeRequest
+            var request = new ZoneEnvironmentInvalidateRequest
             {
                 CachePurgeFlexPurgeByPrefixes = new CachePurgeFlexPurgeByPrefixes
                 {
@@ -322,7 +322,7 @@ public sealed class CloudflareCachingUtil : ICloudflareCachingUtil
             CloudflareOpenApiClient client = apiKey == null
                 ? await _client.Get(cancellationToken).NoSync()
                 : await _client.Get(apiKey, cancellationToken).NoSync();
-            var request = new ZonePurgeRequest
+            var request = new ZoneEnvironmentInvalidateRequest
             {
                 CachePurgeEverything = new CachePurgeEverything
                 {
